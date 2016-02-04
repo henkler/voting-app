@@ -5,6 +5,7 @@ App = React.createClass({
         <div className="jumbotron">
           <h1>Polls!</h1>
         </div>
+        <AccountsUIWrapper />
         {this.props.content}
       </div>
     );
