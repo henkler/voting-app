@@ -13,7 +13,11 @@ PollList = React.createClass({
 
   getMeteorData: function() {
     var polls = [];
-    var handle = this.props.showOnlyMyPolls ? Meteor.subscribe('myPolls') : Meteor.subscribe('allPolls');
+    if (this.props.showOnlyMyPolls && ! Meteor.userId()) {
+      FlowRouter.go('pollList');
+    }
+
+    var handle = this.props.showOnlyMyPolls ? Meteor.subscribe('myPolls', Meteor.userId()) : Meteor.subscribe('allPolls');
     if (handle.ready()) {
       polls = Polls.find().fetch();
     }
@@ -27,9 +31,9 @@ PollList = React.createClass({
     return this.data.polls.map((poll) => {
       var path = FlowRouter.path('pollPage', {_id: poll._id });
       return (
-          <div className="row" key={poll._id}>
-            <div className="col-xs-12"><a href={path}>{poll.title}</a></div>
-          </div>
+          <li className="list-group-item" key={poll._id}>
+            <h2><a href={path}>{poll.title}</a></h2>
+          </li>
       );
     });
   },
@@ -38,26 +42,26 @@ PollList = React.createClass({
     if (this.data.user) {
       var newPollPath = FlowRouter.path('pollNew');
       return (
-        <div className="row">
-          <div className="col-xs-12">
-            <a href={newPollPath} className="btn btn-success btn-lg">New Poll</a>
-          </div>
-        </div>
+          <a href={newPollPath} className="btn btn-success btn-lg">New Poll</a>
       );
     }
   },
 
   render: function() {
     return (
-      <div>
-        <header>
-          <h1>All Polls</h1>
-        </header>
+      <div className="panel panel-success text-center">
+        <div className="panel-heading">
+          <h1>{this.props.showOnlyMyPolls ? "My Polls" : "All Polls"}</h1>
+        </div>
 
-        {this.renderPolls()}
-
-        {this.renderNewPollButton()}
-
+        <div className="panel-body">
+          <ul className="list-group">
+            {this.renderPolls()}
+          </ul>
+        </div>
+        <div className="panel-footer">
+          {this.props.showOnlyMyPolls ? this.renderNewPollButton() : null }
+        </div>
       </div>
     );
   }

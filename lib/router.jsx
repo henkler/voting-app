@@ -2,7 +2,7 @@ FlowRouter.route('/', {
   name: 'home',
   action: function(params, queryParams) {
     ReactLayout.render(App, {
-      content: <PollList />
+      content: <Home />
     });
   }
 });
