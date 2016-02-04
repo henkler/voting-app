@@ -1,4 +1,5 @@
 FlowRouter.route('/', {
+  name: 'home',
   action: function(params, queryParams) {
     ReactLayout.render(App, {
       content: <PollList />
@@ -16,6 +17,15 @@ pollRoutes.route('/', {
   action: function() {
     ReactLayout.render(App, {
       content: <PollList />
+    });
+  }
+});
+
+pollRoutes.route('/my', {
+  name: 'pollListMine',
+  action: function() {
+    ReactLayout.render(App, {
+      content: <PollList showOnlyMyPolls={true} />
     });
   }
 });

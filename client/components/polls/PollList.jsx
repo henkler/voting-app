@@ -1,18 +1,29 @@
 PollList = React.createClass({
   mixins: [ReactMeteorData],
 
-  getMeteorData() {
+  propTypes: {
+    showOnlyMyPolls: React.PropTypes.bool
+  },
+
+  getDefaultProps: function() {
+    return {
+      showOnlyMyPolls: false
+    };
+  },
+
+  getMeteorData: function() {
     var polls = [];
-    var handle = Meteor.subscribe('allPolls');
+    var handle = this.props.showOnlyMyPolls ? Meteor.subscribe('myPolls') : Meteor.subscribe('allPolls');
     if (handle.ready()) {
       polls = Polls.find().fetch();
     }
     return {
+      user: Meteor.user(),
       polls: polls
     }
   },
 
-  renderPolls() {
+  renderPolls: function() {
     return this.data.polls.map((poll) => {
       var path = FlowRouter.path('pollPage', {_id: poll._id });
       return (
@@ -23,21 +34,30 @@ PollList = React.createClass({
     });
   },
 
-  render() {
-    var newPollPath = FlowRouter.path('pollNew');
-    return (
-      <div>
-        <header>
-          <h1>Poll List</h1>
-        </header>
-
-        {this.renderPolls()}
-
+  renderNewPollButton: function() {
+    if (this.data.user) {
+      var newPollPath = FlowRouter.path('pollNew');
+      return (
         <div className="row">
           <div className="col-xs-12">
             <a href={newPollPath} className="btn btn-success btn-lg">New Poll</a>
           </div>
         </div>
+      );
+    }
+  },
+
+  render: function() {
+    return (
+      <div>
+        <header>
+          <h1>All Polls</h1>
+        </header>
+
+        {this.renderPolls()}
+
+        {this.renderNewPollButton()}
+
       </div>
     );
   }
