@@ -29,7 +29,7 @@ PollForm = React.createClass({
   onChangeOption: function(index, event) {
     var value = event.target.value;
 
-    this.state.poll.options[index] = value;
+    this.state.poll.options[index].text = value;
 
     this.setState({poll: this.state.poll});
   },
@@ -39,7 +39,9 @@ PollForm = React.createClass({
       this.state.poll.options = [];
     }
 
-    this.state.poll.options.push("New option");
+    var newOption = { text: 'New option' };
+
+    this.state.poll.options.push(newOption);
     this.setState({poll: this.state.poll});
   },
 
@@ -62,7 +64,7 @@ PollForm = React.createClass({
             type="text"
             className="form-control"
             name={"option" + index}
-            value={option}
+            value={option.text}
             placeholder="Enter option..."
             onChange={this.onChangeOption.bind(null, index)} />
         </div>

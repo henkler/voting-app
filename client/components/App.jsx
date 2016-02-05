@@ -5,7 +5,7 @@ App = React.createClass({
         <Header />
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 col-md-8 col-md-offset-2">
+            <div className="col-xs-12">
               {this.props.content}
             </div>
           </div>
