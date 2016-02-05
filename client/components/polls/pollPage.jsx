@@ -13,6 +13,16 @@ PollPage = React.createClass({
     }
   },
 
+  renderPollOptions() {
+    if (this.data.isLoading || ! this.data.poll.options ) { return; }
+
+    return this.data.poll.options.map((option, index) => {
+      return (
+        <div />
+      );
+    });
+  },
+
   render() {
     if (this.data.isLoading) { return <div />; }
 
@@ -26,11 +36,6 @@ PollPage = React.createClass({
           </div>
           <div className="col-xs-12 col-md-6">
             <p>Chart placeholder</p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12">
-            <a href={editPath} className="btn btn-success">Edit</a>
           </div>
         </div>
       </div>

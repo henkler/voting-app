@@ -1,10 +1,13 @@
-PollList = React.createClass({
+PollMyList = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData: function() {
     var polls = [];
+    if (! Meteor.userId()) {
+      FlowRouter.go('pollList');
+    }
 
-    var handle = Meteor.subscribe('allPolls');
+    var handle = Meteor.subscribe('myPolls', Meteor.userId());
     if (handle.ready()) {
       polls = Polls.find().fetch();
     }
@@ -26,16 +29,21 @@ PollList = React.createClass({
   },
 
   render: function() {
+    var newPollPath = FlowRouter.path('pollNew');
+
     return (
       <div className="panel panel-success text-center">
         <div className="panel-heading">
-          <h1>Available Polls</h1>
+          <h1>My Polls</h1>
         </div>
 
         <div className="panel-body">
           <ul className="list-group">
             {this.renderPolls()}
           </ul>
+        </div>
+        <div className="panel-footer">
+          <a href={newPollPath} className="btn btn-success btn-lg">New Poll</a>
         </div>
       </div>
     );

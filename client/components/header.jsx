@@ -12,7 +12,7 @@ Header = React.createClass({
     var allPollsPath = FlowRouter.path('pollList');
 
     if(this.data.user) {
-      var myPollsPath = FlowRouter.path('pollListMine');
+      var myPollsPath = FlowRouter.path('pollMyList');
       var newPollPath = FlowRouter.path('pollNew');
 
       return (
@@ -44,7 +44,7 @@ Header = React.createClass({
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </button>
-          <a className="navbar-brand" href="#">Voting App</a>
+          <a className="navbar-brand" href="/">Voting App</a>
         </div>
 
         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

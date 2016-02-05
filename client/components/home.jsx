@@ -1,6 +1,6 @@
 Home = React.createClass({
   render: function() {
-    var myPollsPath = FlowRouter.path('pollListMine');
+    var myPollsPath = FlowRouter.path('pollMyList');
     var newPollPath = FlowRouter.path('pollNew');
 
     return (

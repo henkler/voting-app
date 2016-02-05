@@ -22,10 +22,10 @@ pollRoutes.route('/', {
 });
 
 pollRoutes.route('/my', {
-  name: 'pollListMine',
+  name: 'pollMyList',
   action: function() {
     ReactLayout.render(App, {
-      content: <PollList showOnlyMyPolls={true} />
+      content: <PollMyList />
     });
   }
 });
