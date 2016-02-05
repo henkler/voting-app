@@ -28,7 +28,15 @@ PollEdit = React.createClass({
     if (this.data.isLoading) { return <div />; }
 
     return (
-      <PollForm ref="pollForm" poll={this.data.poll} savePoll={this.save} />
+      <div className="panel panel-success">
+        <div className="panel-heading">
+          <h1>Edit Poll</h1>
+        </div>
+
+        <div className="panel-body">
+            <PollForm ref="pollForm" poll={this.data.poll} savePoll={this.save} />
+        </div>
+      </div>
     );
   }
 });

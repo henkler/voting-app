@@ -17,12 +17,23 @@ PollMyList = React.createClass({
     }
   },
 
+  deletePoll: function(pollID) {
+    Meteor.call("removePoll", pollID, function(error, result) {
+      FlowRouter.go('pollMyList');
+    });
+  },
+
   renderPolls: function() {
     return this.data.polls.map((poll) => {
       var path = FlowRouter.path('pollPage', {_id: poll._id });
+      var editPath = FlowRouter.path('pollEdit', {_id: poll._id });
       return (
           <li className="list-group-item" key={poll._id}>
-            <h2><a href={path}>{poll.title}</a></h2>
+            <h2>
+              <a href={path}>{poll.title}</a>
+              <a type="button" href={editPath} className="btn btn-default">Edit</a>
+              <button type="button" className="btn btn-danger" onClick={this.deletePoll.bind(null, poll._id)}>Delete</button>
+            </h2>
           </li>
       );
     });
