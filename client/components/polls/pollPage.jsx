@@ -46,6 +46,15 @@ PollPage = React.createClass({
     });
   },
 
+  getRandomColor: function() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  },
+
   componentDidUpdate: function() {
     this.showExistingVote();
   },
@@ -54,6 +63,14 @@ PollPage = React.createClass({
     if (this.data.isLoading) { return <div />; }
 
     var editPath = FlowRouter.path('pollEdit', {_id: this.props._id });
+
+    var chartData = this.data.poll.options.map((option) => {
+      return {
+        value: option.numVotes,
+        label: option.text,
+        color: this.getRandomColor()
+      }
+    });
 
     return (
       <div>
@@ -65,7 +82,7 @@ PollPage = React.createClass({
             </div>
           </div>
           <div className="col-xs-12 col-md-6">
-            <p>Chart placeholder</p>
+            <DoughnutChart data={chartData} width="400" height="400" redraw />
           </div>
         </div>
       </div>

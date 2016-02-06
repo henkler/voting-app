@@ -49,9 +49,10 @@ PollForm = React.createClass({
     if (!this.state.poll.options || this.state.poll.options.length == 0) {
       return;
     }
-
-    this.state.poll.options.pop();
-    this.setState({poll: this.state.poll});
+    if (confirm("Are you sure?")) {
+      this.state.poll.options.pop();
+      this.setState({poll: this.state.poll});
+    }
   },
 
   renderOptions: function() {
@@ -60,6 +61,7 @@ PollForm = React.createClass({
     return this.state.poll.options.map((option, index) => {
       return (
         <div key={index} className="form-group">
+          <label>{"Option " + (index + 1)}</label>
           <input
             type="text"
             className="form-control"
@@ -85,15 +87,14 @@ PollForm = React.createClass({
             value={this.state.poll.title}
             placeholder="Enter poll title..."
             onChange={this.onChange} />
-          </div>
-          {this.renderOptions()}
-          <button type="button" className="btn btn-default" onClick={this.addOption}>Add Option</button>
-          <button type="button" className="btn btn-danger" onClick={this.removeOption}>Remove Option</button>
-          <button type="button" className="btn btn-success" onClick={this.onSubmit}>Save</button>
-
-        <div ref="optionsGroup">
-
         </div>
+
+        {this.renderOptions()}
+
+        <button type="button" className="btn btn-default" onClick={this.addOption}>Add Option</button>
+        <button type="button" className="btn btn-danger" onClick={this.removeOption}>Remove Option</button>
+        <hr />
+        <button type="button" className="btn btn-lg btn-success" onClick={this.onSubmit}>Save</button>
       </div>
     );
   }

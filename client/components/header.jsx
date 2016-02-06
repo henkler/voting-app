@@ -18,7 +18,7 @@ Header = React.createClass({
       return (
         <ul className="nav navbar-nav">
           <li><a href={homePath}>Home</a></li>
-          <li><a href={allPollsPath}>All Polls</a></li>
+          <li><a href={allPollsPath}>View Polls</a></li>
           <li><a href={myPollsPath}>My Polls</a></li>
           <li><a href={newPollPath}>New Poll</a></li>
         </ul>
