@@ -55,8 +55,16 @@ PollPage = React.createClass({
     return color;
   },
 
+  componentDidMount: function() {
+    this.twitterButtonScriptCode();
+  },
+
   componentDidUpdate: function() {
     this.showExistingVote();
+  },
+
+  twitterButtonScriptCode: function() {
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
   },
 
   render() {
@@ -77,8 +85,13 @@ PollPage = React.createClass({
         <div className="row text-center">
           <div className="col-xs-12 col-md-6">
             <h2>{this.data.poll.title}</h2>
-            <div ref="test" className="btn-group-vertical" role="group">
+            <hr />
+            <div className="btn-group-vertical" role="group">
               {this.renderPollOptions()}
+            </div>
+            <hr />
+            <div>
+              <a href="https://twitter.com/share" className="twitter-share-button" data-size="large">Tweet</a>
             </div>
           </div>
           <div className="col-xs-12 col-md-6">
